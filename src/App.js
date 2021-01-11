@@ -9,9 +9,9 @@ import SignIn from './pages/SignIn/'
 import theme from './theme'
 
 
-function App() {
-  console.log(window.location.href);
+import './mock';
 
+function App() {
   return (
     <ThemeProvider theme={theme}>
       <BrowserRouter>
