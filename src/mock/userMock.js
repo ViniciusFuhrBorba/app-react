@@ -1,11 +1,5 @@
 import mock from '../utils/mock';
 
-// mock.onPost('/api/home/login').reply(200,{
-//     'id':1,
-//     'username': 'vinicius',
-//     'email': 'vinicius@gmail.com'
-// })
-
 mock.onPost('/api/home/login').reply((config) => {
 
 
@@ -20,7 +14,8 @@ mock.onPost('/api/home/login').reply((config) => {
         id: 1,
         name: 'Vinicius',
         username: 'Vinicius',
-        email: 'vinicius@gmail.com'
+        email: 'vinicius@gmail.com',
+        avatar: '/images/avatars/avatar_1.jpeg'
     }
 
 
