@@ -20,7 +20,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Avatar from '@material-ui/core/Avatar';
 
 
-import { getNotifications } from '../../../../actions/notificationsActions';
+import { getNotifications } from '../../../actions/notificationsActions';
 import { makeStyles } from '@material-ui/core';
 
 

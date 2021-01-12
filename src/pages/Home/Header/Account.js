@@ -5,7 +5,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 
 import { useSelector } from 'react-redux'
 
-import { signOut } from '../../../../actions/accountActions';
+import { signOut } from '../../../actions/accountActions';
 import { useDispatch } from 'react-redux';
 
 import { useNavigate } from 'react-router-dom';
