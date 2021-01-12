@@ -1,11 +1,8 @@
 import React from 'react';
 
-
 import Header from './components/Header';
 import Feed from './components/Feed';
 import Navbar from './components/Navbar';
-
-
 
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
