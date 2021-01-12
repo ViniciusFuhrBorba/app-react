@@ -17,7 +17,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { useDispatch } from 'react-redux';
 
-import signIn from '../../actions/accountActions';
+import { signIn } from '../../actions/accountActions';
 
 
 const useStyles = makeStyles((theme) => ({
