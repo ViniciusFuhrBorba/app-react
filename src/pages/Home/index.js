@@ -12,10 +12,10 @@ const useStyles = makeStyles({
 
     root: {
         display: 'flex',
-        flexDirection: 'column'
+        flexDirection: 'column',
     },
     main: {
-        height: '100vh',
+        height: 'calc(100vh - 64px)',
         padding: 24
     },
     toolBar: {
