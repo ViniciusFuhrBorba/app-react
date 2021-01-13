@@ -9,6 +9,8 @@ import Button from '@material-ui/core/Button';
 
 import PostEditor from './Editor';
 import PostPreview from './Preview';
+import PostProvider from '../../../context/PostContext';
+
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -20,59 +22,31 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-
-
 function NewPost() {
 
     const classes = useStyles();
-    const [image, setImage] = useState(null);
-    const [titulo, setTitulo] = useState('');
-    const [tags, setTags] = useState([{ title: 'react.js' }]);
-    const [markdownText, setMarkdownText] = useState('');
 
-
-    const handleTitleChange = (event) => {
-        setTitulo(event.currentTarget.value);
-    }
-    const handleTagsChange = (event, values) => {
-        setTags(values);
-    }
-    const handleMarkdownChange = (event) => {
-        setMarkdownText(event.currentTarget.value)
-    }
     return (
         <>
-            <Box display='flex'
-                height='calc(100% - 90px)'
-                overflow='scrow'
-                className={classes.root}>
-                <Box width='50%' height='100%' padding={2} borderRight='1px solid #ddd'>
-                    <PostEditor
-                        image={image}
-                        setImage={setImage}
-                        titulo={titulo}
-                        setTitulo={handleTitleChange}
-                        tags={tags}
-                        setTags={handleTagsChange}
-                        markdownText={markdownText}
-                        setMarkdownText={handleMarkdownChange}
-                    />
+            <PostProvider>
+                <Box display='flex'
+                    height='calc(100% - 90px)'
+                    overflow='scrow'
+                    className={classes.root}>
+                    <Box width='50%' height='100%' padding={2} borderRight='1px solid #ddd'>
+                        <PostEditor />
+                    </Box>
+                    <Box width='50%' height='100%' padding={2}>
+                        <PostPreview />
+                    </Box>
                 </Box>
-                <Box width='50%' height='100%' padding={2}>
-                    <PostPreview
-                        image={image}
-                        titulo={titulo}
-                        tags={tags}
-                        markdownText={markdownText}
-                    />
-                </Box>
-            </Box>
-            <AppBar position='fixed' color='inherit' className={classes.appBar}>
-                <Toolbar>
-                    <Button style={{ background: 'green', color: '#FFFF', marginRight: '5px' }} variant='contained'>Salvar Rascunho</Button>
-                    <Button style={{ background: 'red', color: '#FFFF' }} variant='contained'>Publicar</Button>
-                </Toolbar>
-            </AppBar>
+                <AppBar position='fixed' color='inherit' className={classes.appBar}>
+                    <Toolbar>
+                        <Button style={{ background: 'green', color: '#FFFF', marginRight: '5px' }} variant='contained'>Salvar Rascunho</Button>
+                        <Button style={{ background: 'red', color: '#FFFF' }} variant='contained'>Publicar</Button>
+                    </Toolbar>
+                </AppBar>
+            </PostProvider>
         </>
     )
 }

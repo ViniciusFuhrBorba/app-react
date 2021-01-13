@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useContext } from 'react';
 
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
@@ -7,13 +7,15 @@ import Box from '@material-ui/core/Box';
 import { makeStyles } from '@material-ui/core/styles';
 import { useDropzone } from 'react-dropzone';
 
+import { PostContext } from '../../../../context/PostContext';
+
 import Title from './Title';
 
 const useStyles = makeStyles((theme) => ({
     button: {
         marginRight: theme.spacing(2)
     },
-    image: {
+    imagem: {
         height: 100
     },
     textArea: {
@@ -41,9 +43,19 @@ const arrayTags = [
     },
 ]
 
-function PostEditor({ image, setImage, titulo, setTitulo, tags, setTags, markdownText, setMarkdownText }) {
+function PostEditor() {
 
     const classes = useStyles();
+
+    const ctx = useContext(PostContext);
+
+    const { 
+        image,
+        setImage,
+        tags,
+        setTags,
+        markdownText,
+        setMarkdownText } = ctx
 
     const onDrop = useCallback(acceptedFiles => {
         const file = acceptedFiles[0];
@@ -65,13 +77,13 @@ function PostEditor({ image, setImage, titulo, setTitulo, tags, setTags, markdow
                 <input {...getInputProps()} />
                 <Button color='primary' variant='contained'>Carregar Imagem</Button>
             </Box>
-            {image && (
+            {ctx.image && (
                 <Box mb={2}>
-                    <img className={classes.image} src={image} alt='background' />
+                    <img className={classes.imagem} src={image} alt='background' />
                 </Box>
             )}
             <Box mb={2}>
-                <Title titulo={titulo} setTitulo={setTitulo}/>
+                <Title />
             </Box>
             <Box mb={2}>
                 <Autocomplete
