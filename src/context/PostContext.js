@@ -1,4 +1,4 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useState, useContext } from 'react';
 
 
 export const PostContext = createContext();
@@ -33,4 +33,12 @@ export default function PostProvider({ children }) {
     }}>
         {children}
     </PostContext.Provider>
+}
+
+
+
+export function usePost() {
+    const ctx = useContext(PostContext);
+    const { titulo, setTitulo, image, setImage, tags, setTags, markdownText, setMarkdownText } = ctx;
+    return { titulo, setTitulo, image, setImage, tags, setTags, markdownText, setMarkdownText }
 }
