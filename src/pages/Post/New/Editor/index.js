@@ -7,6 +7,8 @@ import Box from '@material-ui/core/Box';
 import { makeStyles } from '@material-ui/core/styles';
 import { useDropzone } from 'react-dropzone';
 
+import Title from './Title';
+
 const useStyles = makeStyles((theme) => ({
     button: {
         marginRight: theme.spacing(2)
@@ -61,29 +63,33 @@ function PostEditor({ image, setImage, titulo, setTitulo, tags, setTags, markdow
         <>
             <Box {...getRootProps()} mb={2}>
                 <input {...getInputProps()} />
-                <Button>Carregar Imagem</Button>
+                <Button color='primary' variant='contained'>Carregar Imagem</Button>
             </Box>
             {image && (
-
-                <img className={classes.image} src={image} alt='background' />
-
+                <Box mb={2}>
+                    <img className={classes.image} src={image} alt='background' />
+                </Box>
             )}
-            <TextField id='title' placeholder='Título' fullWidth value={titulo} onChange={setTitulo}></TextField>
-            <Autocomplete
-                multiple
-                id="tags-standard"
-                options={arrayTags}
-                getOptionLabel={(option) => option.title}
-                value={tags}
-                onChange={setTags}
-                renderInput={(params) => (
-                    <TextField
-                        {...params}
-                        variant="standard"
-                        placeholder="Tags"
-                    />
-                )}
-            />
+            <Box mb={2}>
+                <Title titulo={titulo} setTitulo={setTitulo}/>
+            </Box>
+            <Box mb={2}>
+                <Autocomplete
+                    multiple
+                    id="tags-standard"
+                    options={arrayTags}
+                    getOptionLabel={(option) => option.title}
+                    value={tags}
+                    onChange={setTags}
+                    renderInput={(params) => (
+                        <TextField
+                            {...params}
+                            variant="standard"
+                            placeholder="Tags"
+                        />
+                    )}
+                />
+            </Box>
             <textarea className={classes.textArea} onChange={setMarkdownText} value={markdownText}></textarea>
         </>
     )

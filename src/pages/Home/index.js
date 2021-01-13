@@ -15,7 +15,7 @@ const useStyles = makeStyles({
         flexDirection: 'column',
     },
     main: {
-        height: 'calc(100vh - 64px)',
+        height: 'calc(100vh - 94px)',
         padding: 24
     },
     toolBar: {
