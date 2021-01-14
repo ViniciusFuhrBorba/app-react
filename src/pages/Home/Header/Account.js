@@ -18,7 +18,6 @@ function Account() {
     const ref = useRef();
     const dispatch = useDispatch();
     const navigate = useNavigate();
-
     const isAuthenticated = !!account.user;
 
     const handleOpen = () => {
@@ -50,7 +49,7 @@ function Account() {
                         onClose={handleClose}
                         getContentAnchorEl={null}
                     >
-                        <MenuItem>Perfil</MenuItem>
+                        <MenuItem onClick={() => navigate(`/${account.user?.username}`)}>Perfil</MenuItem>
                         <MenuItem>Meus Posts</MenuItem>
                         <MenuItem>Minha Conexões</MenuItem>
                         <MenuItem onClick={handleSignOut}>Sair</MenuItem>

@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Typography from '@material-ui/core/Typography'
-
-
+import { Formik } from 'formik';
+import * as Yup from 'yup';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
@@ -63,28 +63,10 @@ function Copyright() {
 
 function SignIn() {
 
-
     const classes = useStyles();
     const navigate = useNavigate();
 
-
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [errorMessage, setErrorMessage] = useState();
-
     const dispatch = useDispatch();
-
-
-    async function handleSignIn() {
-
-        try {
-            await dispatch(signIn(email, password));
-            navigate('/');
-        }
-        catch (error) {
-            setErrorMessage(error.response.data.message)
-        }
-    }
 
     return (
 
@@ -110,36 +92,71 @@ function SignIn() {
                         <LockOutlinedIcon />
                     </Avatar>
                     <Typography variant='h5'>Acesso</Typography>
-                    <form className={classes.form}>
-                        <TextField variant='outlined'
-                            margin='normal' required fullWidth
-                            id='email' label='E-mail'
-                            name='email' autoComplete='email'
-                            autoFocus value={email} onChange={(event) => setEmail(event.target.value)}>
-                        </TextField>
-                        <TextField variant='outlined'
-                            margin='normal' required fullWidth
-                            id='password' label='Senha'
-                            name='password' type='password'
-                            autoComplete='current-password'
-                            value={password} onChange={(event) => setPassword(event.target.value)}>
-                        </TextField>
+
+                    <Formik
+                        initialValues={{
+                            email: '',
+                            password: ''
+                        }}
+                        validationSchema={
+                            Yup.object().shape({
+                                email: Yup.string().email("Favor informar um email válido").max(255).required("Favor informar um email"),
+                                password: Yup.string().max(255).required("Favor informar uma senha"),
+                            })}
+                        onSubmit={async (values, {
+                            setErrors,
+                            setStatus,
+                            setSubmitting
+                        }) => {
+                            try {
+                                await dispatch(signIn(values.email, values.password));
+                                navigate('/');
+                            }
+                            catch (error) {
+                                const message = (error.response && error.response.data.message) || "Something went wrong";
+                                setStatus({ success: false });
+                                setErrors({ submit: message });
+                                setSubmitting(false);
+                            }
+                        }}
+                    >
                         {
-                            errorMessage &&
-                            <FormHelperText error className={classes.error}>
-                                {errorMessage}
-                            </FormHelperText>
+                            ({ errors, handleChange, handleSubmit, isSubmitting, values }) => (
+                                <form noValidate className={classes.form} onSubmit={handleSubmit}>
+                                    <TextField variant='outlined'
+                                        margin='normal' required fullWidth
+                                        id='email' label='E-mail'
+                                        name='email' autoComplete='email'
+                                        autoFocus value={values.email} onChange={handleChange}
+                                        helperText={errors.email} error={Boolean(errors.email)}>
+                                    </TextField>
+                                    <TextField variant='outlined'
+                                        margin='normal' required fullWidth
+                                        id='password' label='Senha'
+                                        name='password' type='password'
+                                        autoComplete='current-password'
+                                        value={values.password} onChange={handleChange}
+                                        helperText={errors.password} error={Boolean(errors.password)}>
+                                    </TextField>
+                                    {
+                                        errors.submit &&
+                                        <FormHelperText error className={classes.error}>
+                                            {errors.submit}
+                                        </FormHelperText>
+                                    }
+                                    <Button className={classes.button} fullWidth variant='contained' color='primary' type='submit' disabled={isSubmitting}>Entrar</Button>
+                                    <Grid container>
+                                        <Grid item>
+                                            <Link>Esqueceu sua Senha?</Link>
+                                        </Grid>
+                                        <Grid item>
+                                            <Link>Não tem uma conta? Registre-se</Link>
+                                        </Grid>
+                                    </Grid>
+                                </form>
+                            )
                         }
-                        <Button className={classes.button} fullWidth variant='contained' color='primary' onClick={handleSignIn}>Entrar</Button>
-                        <Grid container>
-                            <Grid item>
-                                <Link>Esqueceu sua Senha?</Link>
-                            </Grid>
-                            <Grid item>
-                                <Link>Não tem uma conta? Registre-se</Link>
-                            </Grid>
-                        </Grid>
-                    </form>
+                    </Formik>
                     <Copyright />
                 </Box>
             </Grid>

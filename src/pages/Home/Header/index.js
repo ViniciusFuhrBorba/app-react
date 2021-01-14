@@ -4,7 +4,7 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar'
 import Box from '@material-ui/core/Box';
 import { Link } from 'react-router-dom';
-
+import Settings from './Settings';
 
 import Account from './Account';
 import Notifications from './Notifications';
@@ -50,6 +50,9 @@ function Header() {
                     <WritePost></WritePost>
                     <Box ml={2}>
                         <Notifications></Notifications>
+                    </Box>
+                    <Box ml={2}>
+                        <Settings />
                     </Box>
                     <Box ml={2}>
                         <Account></Account>

@@ -1,4 +1,4 @@
-const typograpy = {
+export default {
     h1: {
         fontWeight: 500,
         fontSize: 35,
@@ -30,5 +30,3 @@ const typograpy = {
         letterSpacing: '-0.05px'
     }
 }
-
-export default typograpy;

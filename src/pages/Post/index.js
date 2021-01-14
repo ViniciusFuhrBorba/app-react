@@ -13,7 +13,7 @@ function Post() {
             `/api/post/${params.slug}`,
         );
         setPost(feed.data);
-    }, [setPost]);
+    }, [setPost, params.slug]);
 
     useEffect(() => {
         getPost();
