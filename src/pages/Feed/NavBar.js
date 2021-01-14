@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { useNavigate } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 
 import Paper from '@material-ui/core/Paper';
@@ -45,11 +45,11 @@ const tags = [
 function Navbar() {
 
     const classes = useStyles();
-
+    const navigate = useNavigate();
     return (
 
         <Paper className={classes.root}>
-            <Button variant="outlined" color='secondary' className={classes.button}>Registri-se Grátis</Button>
+            <Button variant="outlined" color='secondary' className={classes.button} onClick={() => navigate('/sign-up')}>Registri-se Grátis</Button>
             <ListSubheader>{`Tags em Alta`}</ListSubheader>
             {
                 tags.map((item) => (

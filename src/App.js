@@ -5,12 +5,14 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import Home from './pages/Home';
 import SignIn from './pages/SignIn/';
+import SignUp from './pages/SignUp';
 import GuestRoute from './routes/GuestRoute';
 import { Provider } from 'react-redux';
 
 import theme from './theme';
 import store from './store';
 import Auth from './components/Auth';
+
 
 import './mock';
 
@@ -22,6 +24,7 @@ function App() {
           <Auth>
             <Routes>
               <GuestRoute path='/sign-in' element={<SignIn />}></GuestRoute>
+              <GuestRoute path='/sign-up' element={<SignUp />}></GuestRoute>
               <Route path='//*' element={<Home />}></Route>
             </Routes>
           </Auth>
