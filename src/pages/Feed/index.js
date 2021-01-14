@@ -1,68 +1,44 @@
-import React from 'react';
-
+import React, { useCallback, useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-
-import PostCard from '../../components/PostCard';
-import Navbar from './NavBar';
-import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
+import Hidden from '@material-ui/core/Hidden';
+import Box from '@material-ui/core/Box';
+
+import axios from '../../utils/axios';
+import PostCard from '../../components/PostCard';
+import NavBar from './NavBar';
 
 const useStyles = makeStyles(() => ({
-    root: {
-
-    }
+    root: {},
 }));
 
-
-const posts = [
-    {
-        id: 1,
-        author: {
-            name: 'Lucas Nhimi',
-            username: 'lucasnhimi',
-            avatar: "/images/avatars/avatar_1.jpeg"
-        },
-        title: "Criando um App do zero utilizando React.js",
-        date: "April 7, 2020",
-        description: "Fala pessoal! Qual o framework favorito de vcs?",
-        hashtags: "#python, #javascript, #reactjs, #C#",
-        image: "/images/posts/post9.jpeg"
-    },
-    {
-        id: 2,
-        author: {
-            name: 'Lucas Nhimi',
-            username: 'lucasnhimi',
-            avatar: "/images/avatars/avatar_1.jpeg"
-        },
-        title: "Comparativo entre React.js e Vue.js - Performance",
-        date: "April 1, 2020",
-        description: "Quero criar um bootcamp gratuito para ensinar",
-        hashtags: "#python, #javascript, #reactjs, #C#",
-        image: "/images/posts/post8.png"
-    },
-];
-
 function Feed() {
-
     const classes = useStyles();
+    const [posts, setPosts] = useState([]);
+
+    const getPosts = useCallback(async () => {
+        const feed = await axios.get('/api/feed');
+        setPosts(feed.data.posts);
+    }, [setPosts]);
+
+    useEffect(() => {
+        getPosts();
+    }, [getPosts]);
 
     return (
-
         <Container maxWidth="lg">
-            <Box display='flex'>
-                <Navbar />
+            <Box display="flex">
+                <Hidden smDown>
+                    <NavBar />
+                </Hidden>
                 <div className={classes.root}>
-                    {
-                        posts.map(post => (
-                            <PostCard key={post.id} post={post}></PostCard>
-                        ))
-                    }
+                    {posts.map((post) => (
+                        <PostCard key={post.id} post={post} />
+                    ))}
                 </div>
             </Box>
         </Container>
-
-    )
+    );
 }
 
 export default Feed;

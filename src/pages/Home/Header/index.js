@@ -1,12 +1,9 @@
 import React from 'react';
-
-
-
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar'
 import Box from '@material-ui/core/Box';
-import Link from '@material-ui/core/Link';
+import { Link } from 'react-router-dom';
 
 
 import Account from './Account';
