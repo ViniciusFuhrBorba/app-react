@@ -16,7 +16,7 @@ import { useSettings } from './context/SettingsContext';
 import Auth from './components/Auth';
 
 
-import './mock';
+// import './mock';
 
 function App() {
 

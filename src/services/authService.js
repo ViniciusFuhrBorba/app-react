@@ -6,10 +6,10 @@ class AuthService {
 
     signIn = (email, password) => {
         return new Promise((resolve, reject) => {
-            axios.post('/api/home/login', { email, password })
+            axios.post('/v1/auth/login', { email, password })
                 .then(response => {
                     if (response.data.user) {
-                        this.setToken('JWT')
+                        this.setToken(response.data.token)
                         resolve(response.data.user)
                     } else {
                         reject(response.data.error)
@@ -22,7 +22,7 @@ class AuthService {
     }
 
     signUp = (fullName, email, password) => {
-       
+
     }
 
     signInWithToken = () => {
@@ -47,8 +47,14 @@ class AuthService {
 
 
     setToken = (token) => {
-        localStorage.setItem('accessToken', token);
-    }
+        if (token) {
+            localStorage.setItem('accessToken', token);
+            axios.defaults.headers.common.Authorization = `Bearer ${token}`;
+        } else {
+            localStorage.setItem('token');
+            delete axios.defaults.headers.common.Authorization;
+        }
+    };
 
     getToken = () => localStorage.getItem('accessToken');
 
